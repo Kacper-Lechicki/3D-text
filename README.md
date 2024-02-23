@@ -12,3 +12,19 @@ Created basic scene with cube and orbit controls.
 
 ![image](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/ce1ccf69-73b1-4729-a54b-d3df48b6bfd9)
 
+### **Step 2**:
+
+Imported FontLoader and got typeface from three resources.
+
+### **Step 3**:
+
+Imported TextGeometry and initialized it in callback function when FontLoader is done with loading imported font.
+Next, created mesh with basic material and added text to the scene.
+
+![alt text](image.png)
+
+### **Step 4**:
+
+Added AxesHelper to the scene. It can help while positioning elements.
+
+![alt text](image-1.png)
