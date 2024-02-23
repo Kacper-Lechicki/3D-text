@@ -9,3 +9,6 @@
 ### **Step 1**:
 
 Created basic scene with cube and orbit controls.
+
+![image](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/ce1ccf69-73b1-4729-a54b-d3df48b6bfd9)
+
