@@ -28,3 +28,9 @@ Next, created mesh with basic material and added text to the scene.
 Added AxesHelper to the scene. It can help while positioning elements.
 
 ![alt text](image-1.png)
+
+### **Step 5**:
+
+Used the bounding (information associated with the geometry that tells that space is taken by the geometry). It can be represented by a box or by a sphere. I used box bounding to center a displayed text.
+
+![alt text](image-2.png)
