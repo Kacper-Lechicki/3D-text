@@ -21,16 +21,17 @@ Imported FontLoader and got typeface from three resources.
 Imported TextGeometry and initialized it in callback function when FontLoader is done with loading imported font.
 Next, created mesh with basic material and added text to the scene.
 
-![alt text](image.png)
+![image](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/317193ae-fc83-432c-a6fc-fab413045733)
 
 ### **Step 4**:
 
 Added AxesHelper to the scene. It can help while positioning elements.
 
-![alt text](image-1.png)
+![image-1](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/c9dcfa2a-f9d3-43ff-9ae2-f7c056b94ba7)
 
 ### **Step 5**:
 
 Used the bounding (information associated with the geometry that tells that space is taken by the geometry). It can be represented by a box or by a sphere. I used box bounding to center a displayed text.
 
-![alt text](image-2.png)
+![image-2](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/e2522dd0-bca7-4bfb-8517-81392cc3c080)
+
