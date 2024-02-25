@@ -51,7 +51,7 @@ Donuts as 3D space/ environment of the scene.
 
 Added some controls to lil GUI.
 
-_image_
+![Zrzut ekranu 2024-02-25 o 16 01 43](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/6310c636-3ab6-4246-be7d-1262cd896e4c)
 
 ### **Step 9**:
 
