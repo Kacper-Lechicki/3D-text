@@ -39,10 +39,11 @@ Used the bounding (information associated with the geometry that tells that spac
 
 Switched material to MatcapMaterial.
 
-_image_
+![Zrzut ekranu 2024-02-25 o 14 44 36](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/3840bdb8-d2d0-44d5-93a8-a6f703210577)
 
 ### **Step 7**:
 
 Donuts as 3D space/ environment of the scene.
 
-_image_
+![Zrzut ekranu 2024-02-25 o 15 08 45](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/2de34e10-9d78-4e14-a81f-6b5103301ec3)
+
