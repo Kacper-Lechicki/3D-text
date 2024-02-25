@@ -4,6 +4,8 @@
 
 ### 🛠️ **Tools**: Three.js, Javascript
 
+### 🔗 Link: https://threejs-3-d-text-ecru.vercel.app/
+
 ### 📋 **Steps**:
 
 ### **Step 1**:
@@ -56,3 +58,7 @@ Added some controls to lil GUI.
 ### **Step 9**:
 
 Code refactored.
+
+### **Step 10**:
+
+Deploy
