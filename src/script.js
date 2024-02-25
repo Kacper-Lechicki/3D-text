@@ -16,14 +16,14 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
-//Axis Helper
-const axesHelper = new THREE.AxesHelper();
-scene.add(axesHelper);
-
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
+const matcapTexture1 = textureLoader.load('/textures/matcaps/3.png');
+const matcapTexture2 = textureLoader.load('/textures/matcaps/2.png');
+matcapTexture1.colorSpace = THREE.SRGBColorSpace;
+matcapTexture2.colorSpace = THREE.SRGBColorSpace;
 
 /**
  * Fonts
@@ -33,29 +33,51 @@ const fontLoader = new FontLoader();
 fontLoader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
 	const textGeometry = new TextGeometry('Kacper Lechicki', {
 		font,
-		size: 0.5,
-		height: 0.2,
+		size: 0.4,
+		height: 0.1,
 		bevelEnabled: true,
-		curveSegments: 5,
-		bevelThickness: 0.03,
-		bevelSize: 0.02,
+		curveSegments: 20,
+		bevelThickness: 0.02,
+		bevelSize: 0.01,
 		bevelOffset: 0,
-		bevelSegments: 4,
+		bevelSegments: 2,
 	});
 
-	// textGeometry.computeBoundingBox();
-	// textGeometry.translate(
-	// 	-(textGeometry.boundingBox.max.x - 0.02) * 0.5,
-	// 	-(textGeometry.boundingBox.max.y - 0.02) * 0.5,
-	// 	-(textGeometry.boundingBox.max.z - 0.03) * 0.5
-	// );
+	const matcapMaterial1 = new THREE.MeshMatcapMaterial({
+		matcap: matcapTexture1,
+	});
+
+	const matcapMaterial2 = new THREE.MeshMatcapMaterial({
+		matcap: matcapTexture2,
+	});
 
 	textGeometry.center();
 
-	const textMaterial = new THREE.MeshBasicMaterial();
-	const text = new THREE.Mesh(textGeometry, textMaterial);
+	const text = new THREE.Mesh(textGeometry, matcapMaterial1);
 
 	scene.add(text);
+
+	/**
+	 * Donuts
+	 */
+	const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
+
+	for (let i = 0; i < 100; i++) {
+		const donut = new THREE.Mesh(donutGeometry, matcapMaterial2);
+
+		const randomPositionX = (Math.random() - 0.5) * 10;
+		const randomPositionY = (Math.random() - 0.5) * 10;
+		const randomPositionZ = (Math.random() - 0.5) * 10;
+		donut.position.set(randomPositionX, randomPositionY, randomPositionZ);
+
+		const randomScale = Math.random() * (1.5 - 0.3) + 0.3;
+		donut.scale.set(randomScale, randomScale, randomScale);
+
+		const randomRotation = Math.random() * Math.PI;
+		donut.rotation.set(randomRotation, randomRotation, randomRotation);
+
+		scene.add(donut);
+	}
 });
 
 /**

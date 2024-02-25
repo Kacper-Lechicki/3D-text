@@ -35,3 +35,14 @@ Used the bounding (information associated with the geometry that tells that spac
 
 ![image-2](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/e2522dd0-bca7-4bfb-8517-81392cc3c080)
 
+### **Step 6**:
+
+Switched material to MatcapMaterial.
+
+_image_
+
+### **Step 7**:
+
+Donuts as 3D space/ environment of the scene.
+
+_image_
