@@ -61,4 +61,10 @@ Code refactored.
 
 ### **Step 10**:
 
-Deploy
+Deploy.
+
+### **Step 11**:
+
+Added more controls.
+
+_image_

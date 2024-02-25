@@ -33,43 +33,84 @@ const camera = new THREE.PerspectiveCamera(
 	0.1,
 	100
 );
+
 camera.position.set(1, 1, 2);
+
 scene.add(camera);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ canvas });
+
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
+
 controls.enableDamping = true;
 
 // Variables
 let textGeometry;
+let textMesh;
+let yourFontObject; // Variable to store loaded font object
 
 // Functions
+const updateText = (text) => {
+	if (textMesh) {
+		scene.remove(textMesh);
+	}
+
+	textGeometry = new TextGeometry(text, {
+		font: yourFontObject,
+		size: geometryParams.size,
+		height: geometryParams.height,
+		bevelEnabled: geometryParams.bevelEnabled,
+		curveSegments: geometryParams.curveSegments,
+		bevelThickness: geometryParams.bevelThickness,
+		bevelSize: geometryParams.bevelSize,
+		bevelOffset: geometryParams.bevelOffset,
+		bevelSegments: geometryParams.bevelSegments,
+	});
+
+	textGeometry.center();
+
+	const matcapMaterial = new THREE.MeshMatcapMaterial({
+		matcap: textureLoader.load(textures.matcapTexture1),
+	});
+	matcapMaterial.matcap.colorSpace = THREE.SRGBColorSpace;
+
+	textMesh = new THREE.Mesh(textGeometry, matcapMaterial);
+
+	scene.add(textMesh);
+};
+
 const addDonuts = (count, geometry, material) => {
 	material.matcap.colorSpace = THREE.SRGBColorSpace;
 
 	for (let i = 0; i < count; i++) {
 		const donut = new THREE.Mesh(geometry, material);
+
 		donut.position.set(
 			(Math.random() - 0.5) * 10,
 			(Math.random() - 0.5) * 10,
 			(Math.random() - 0.5) * 10
 		);
+
 		donut.scale.setScalar(Math.random() * (1.5 - 0.3) + 0.3);
+
 		donut.rotation.set(
 			Math.random() * Math.PI * 2, // Random rotation around x-axis
 			Math.random() * Math.PI * 2, // Random rotation around y-axis
 			Math.random() * Math.PI * 2 // Random rotation around z-axis
 		);
+
 		scene.add(donut);
 	}
 };
 
 const initText = (font) => {
+	yourFontObject = font; // Assigning the loaded font to the variable
+
 	textGeometry = new TextGeometry('Kacper Lechicki', {
 		font,
 		size: 0.4,
@@ -81,19 +122,23 @@ const initText = (font) => {
 		bevelOffset: 0,
 		bevelSegments: 2,
 	});
+
 	textGeometry.center();
 
 	const matcapMaterial1 = new THREE.MeshMatcapMaterial({
 		matcap: textureLoader.load(textures.matcapTexture1),
 	});
+
 	matcapMaterial1.matcap.colorSpace = THREE.SRGBColorSpace;
 
-	const text = new THREE.Mesh(textGeometry, matcapMaterial1);
-	scene.add(text);
+	textMesh = new THREE.Mesh(textGeometry, matcapMaterial1);
+
+	scene.add(textMesh);
 
 	const matcapMaterial2 = new THREE.MeshMatcapMaterial({
 		matcap: textureLoader.load(textures.matcapTexture2),
 	});
+
 	matcapMaterial2.matcap.colorSpace = THREE.SRGBColorSpace;
 
 	addDonuts(100, new THREE.TorusGeometry(0.3, 0.2, 20, 45), matcapMaterial2);
@@ -119,17 +164,119 @@ const animate = () => {
 window.addEventListener('resize', onWindowResize);
 
 // Initialization
-fontLoader.load(fonts.helvetiker_regular, initText);
+fontLoader.load(fonts.helvetiker_regular, (font) => {
+	initText(font);
+});
+
 animate();
 
 // GUI Controls
-gui.add(camera.position, 'x').min(-10).max(10).step(0.1).name('Camera X');
-gui.add(camera.position, 'y').min(-10).max(10).step(0.1).name('Camera Y');
-gui.add(camera.position, 'z').min(-10).max(10).step(0.1).name('Camera Z');
+const cameraControls = gui.addFolder('Camera Controls');
 
-// Donut Count Control
+cameraControls
+	.add(camera.position, 'x')
+	.min(-10)
+	.max(10)
+	.step(0.1)
+	.name('Camera X');
+
+cameraControls
+	.add(camera.position, 'y')
+	.min(-10)
+	.max(10)
+	.step(0.1)
+	.name('Camera Y');
+
+cameraControls
+	.add(camera.position, 'z')
+	.min(-10)
+	.max(10)
+	.step(0.1)
+	.name('Camera Z');
+
+const textGeometryControls = gui.addFolder('Text Geometry Parameters');
+const textInput = { text: 'Kacper Lechicki' };
+
+textGeometryControls
+	.add(textInput, 'text')
+	.name('Text')
+	.onChange((value) => {
+		updateText(value);
+	});
+
+const geometryParams = {
+	size: 0.4,
+	height: 0.1,
+	bevelEnabled: true,
+	curveSegments: 20,
+	bevelThickness: 0.02,
+	bevelSize: 0.01,
+	bevelOffset: 0,
+	bevelSegments: 2,
+	wireframe: false,
+};
+
+textGeometryControls
+	.add(geometryParams, 'size', 0.1, 2)
+	.name('Size')
+	.min(0)
+	.max(2)
+	.step(0.01)
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+textGeometryControls
+	.add(geometryParams, 'bevelEnabled')
+	.name('Bevel Enabled')
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+textGeometryControls
+	.add(geometryParams, 'curveSegments', 1, 50, 1)
+	.name('Curve Segments')
+	.min(0)
+	.max(20)
+	.step(0.01)
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+textGeometryControls
+	.add(geometryParams, 'bevelThickness', 0, 0.1, 0.001)
+	.name('Bevel Thickness')
+	.min(0)
+	.max(1)
+	.step(0.01)
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+textGeometryControls
+	.add(geometryParams, 'bevelSize', 0, 0.1, 0.001)
+	.name('Bevel Size')
+	.min(0)
+	.max(0.5)
+	.step(0.01)
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+textGeometryControls
+	.add(geometryParams, 'bevelOffset', -0.1, 0.1, 0.001)
+	.name('Bevel Offset')
+	.min(0)
+	.max(0.3)
+	.step(0.01)
+	.onChange(() => {
+		updateText(textInput.text);
+	});
+
+const donutsControls = gui.addFolder('Donuts Controls');
+
 const donutCount = { count: 100 };
-gui
+donutsControls
 	.add(donutCount, 'count')
 	.min(0)
 	.max(200)
