@@ -67,4 +67,5 @@ Deploy.
 
 Added more controls.
 
-_image_
+![Zrzut ekranu 2024-02-25 o 18 07 26](https://github.com/Kacper-Lechicki/THREEJS_3D_Text/assets/160114199/67b4da3e-864f-41fd-90c0-b3c2b33d0419)
+
